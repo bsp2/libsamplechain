@@ -34,6 +34,18 @@
 #include "cplusplus_begin.h"
 
 
+typedef int32_t bool_t;
+
+typedef float float32_t;
+
+#define SC_FALSE 0
+#define SC_TRUE  1
+
+#ifndef NULL
+#define NULL ((void*)0)
+#endif
+
+
 // Opaque sample chain handle
 typedef void *samplechain_t;
 
@@ -56,7 +68,7 @@ typedef struct {
    //  - Invalidates the current output
    //  - May only be called after init() was called
    //  - Returns true if the element was added, false otherwise (e.g. max number of slices exceeded)
-   bool_t (*add) (samplechain_t _sc, size_t _numSampleFrames);
+   bool_t (*add) (samplechain_t _sc, size_t _numSampleFrames, void *_userData);
 
    // Calculate sample chain
    //  - Layout sample chain elements and create new output state (for queries)
@@ -83,6 +95,9 @@ typedef struct {
    //  - (note) the difference to the total size is the number of padding frames
    size_t (*query_element_original_size) (samplechain_t _sc, uint32_t _elementIdx);  
 
+   // Return sample chain element user_data pointer
+   void *(*query_element_user_data) (samplechain_t _sc, uint32_t _elementIdx);  
+
    // Free samplechain / internal datastructures
    void (*exit) (samplechain_t *_sc);
       
@@ -93,8 +108,9 @@ typedef struct {
 uint32_t samplechain_get_num_algorithms (void);
 
 // Select an algorithm.
-//  - Returns algorithm vtable in 'retAlgorithm' if 'algorithmIdx' is valid, NULL otherwise.
-void samplechain_select_algorithm (uint32_t _algorithmIdx, samplechain_algorithm_t *_retAlgorithm);
+//  - Returns algorithm vtable in 'retAlgorithm' if 'algorithmIdx' is valid
+//  - Returns true if algorithm selection succeeded, false otherwise
+bool_t samplechain_select_algorithm (uint32_t _algorithmIdx, samplechain_algorithm_t *_retAlgorithm);
 
 
 #if 0
@@ -106,24 +122,27 @@ samplechain_select_algorithm(0, &alg);
 
 alg.init(&sc, 120);
 
-alg.add(sc, 34004);
-alg.add(sc, 11800);
-alg.add(sc, 38356);
-alg.add(sc, 35744);
-alg.add(sc,  4834);
-alg.add(sc, 13106);
-alg.add(sc, 14846);
-alg.add(sc, 15282);
-alg.add(sc, 34004);
-alg.add(sc, 43146);
-alg.add(sc,  5704);
+alg.add(sc, 34004, NULL/*userData*/);
+alg.add(sc, 11800, NULL/*userData*/);
+alg.add(sc, 38356, NULL/*userData*/);
+alg.add(sc, 35744, NULL/*userData*/);
+alg.add(sc,  4834, NULL/*userData*/);
+alg.add(sc, 13106, NULL/*userData*/);
+alg.add(sc, 14846, NULL/*userData*/);
+alg.add(sc, 15282, NULL/*userData*/);
+alg.add(sc, 34004, NULL/*userData*/);
+alg.add(sc, 43146, NULL/*userData*/);
+alg.add(sc,  5704, NULL/*userData*/);
 
-alg.calc();
+alg.calc(sc);
 
 printf("total samplechain size is %lu sample frames\n", alg.query_total_size(sc));
 
-alg.exit();
+alg.exit(&sc);
 #endif
+
+
+#include "cplusplus_end.h"
 
 
 #endif // SAMPLECHAIN_INTERFACE_H_INCLUDED
