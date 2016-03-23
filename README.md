@@ -12,7 +12,7 @@ This algorithm creates a "variable sample chain" (varichain), where the sample s
 
 The advantage of this is that the resulting chain is shorter than a sample chain that uses fixed-size slices where each slice is aligned to the maximum slice length.
 
-Each sample slice can be padded with extra silence so that the sample "END" parameter on the Analog Rytm can be set to 120 and only the "STA" parameter needs to be adjusted to select a slice.
+Each sample slice can be padded with extra silence to avoid accidental triggering of the following slice. The sample "END" parameter on the Analog Rytm can then be set to 120 and only the "STA" parameter needs to be adjusted to select a slice.
 
 There are actually two padding parameters:
 * "extra_padding": sets the nominal padding
