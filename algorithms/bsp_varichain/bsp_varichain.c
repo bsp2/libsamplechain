@@ -31,6 +31,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "../../algorithm_interface_proposal.h"
 
@@ -237,6 +238,28 @@ static void loc_init(samplechain_t *_retSc, uint32_t _numSlices/*120 for AR*/) {
 
 static bool_t loc_set_parameter_i(samplechain_t _sc, const char *_paramName, int32_t _paramValue) {
    bool_t ret = SC_FALSE;
+
+   sc_t *sc = (sc_t*)_sc;
+
+   if(NULL != sc)
+   {
+      if(0 == strcmp("extra_padding", _paramName))
+      {
+         if(_paramValue > 0)
+         {
+            sc->extra_padding = _paramValue;
+            ret = SC_TRUE;
+         }
+      }
+      else if(0 == strcmp("min_padding", _paramName))
+      {
+         if(_paramValue > 0)
+         {
+            sc->min_padding = _paramValue;
+            ret = SC_TRUE;
+         }
+      }
+   }
 
    return ret;
 }

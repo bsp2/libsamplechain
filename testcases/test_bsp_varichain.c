@@ -43,6 +43,9 @@ void test_bsp_varichain(void) {
 
    alg.init(&sc, 120);
 
+   alg.set_parameter_i(sc, "extra_padding", 2000);
+   alg.set_parameter_i(sc, "min_padding",   1000);
+
    alg.add(sc, 16980, NULL/*userData*/);
    alg.add(sc,  5878, NULL/*userData*/);
    alg.add(sc, 19156, NULL/*userData*/);
