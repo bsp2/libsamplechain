@@ -121,7 +121,7 @@ static void loc_align_sizes_to(sc_t *_sc, int32_t _sz) {
                 _sz
                 );
 
-         _sc->cur_sta += ((float32_t)chSz) / _sz;
+         _sc->cur_sta += (((float32_t)chSz) / _sz) * (_sc->num_slices / _sc->num_elements);
       }
    }
 }
