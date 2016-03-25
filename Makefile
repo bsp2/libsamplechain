@@ -8,10 +8,12 @@ CFLAGS += -DSC_DEBUG
 
 EXE_OBJ= \
 	testcases/test_bsp_varichain.o \
+	testcases/test_bsp_samplechain.o \
 	testcases/main.o
 
 LIB_OBJ= \
 	algorithms/bsp_varichain/bsp_varichain.o \
+	algorithms/bsp_samplechain/bsp_samplechain.o \
 	algorithm.o
 
 OBJ= \
