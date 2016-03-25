@@ -23,7 +23,7 @@
  * ----
  * ---- info   : This is part of the "libsamplechain" package.
  * ----
- * ---- changed: 23Mar2016
+ * ---- changed: 23Mar2016, 25Mar2016
  * ----
  * ----
  */
@@ -32,11 +32,14 @@
 
 
 extern void test_bsp_varichain (void);
+extern void test_bsp_samplechain (void);
 
 
 int main(int argc, char**argv) {
 
    test_bsp_varichain();
+
+   test_bsp_samplechain();
 
    return 0;
 }

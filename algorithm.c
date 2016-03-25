@@ -23,7 +23,7 @@
  * ----
  * ---- info   : This is part of the "libsamplechain" package.
  * ----
- * ---- changed: 23Mar2016
+ * ---- changed: 23Mar2016, 25Mar2016
  * ----
  * ----
  */
@@ -34,11 +34,13 @@
 #include "algorithm_interface_proposal.h"
 
 
-extern void bsp_varichain_select (samplechain_algorithm_t *_algorithm);
+extern void bsp_varichain_select   (samplechain_algorithm_t *_algorithm);
+extern void bsp_samplechain_select (samplechain_algorithm_t *_algorithm);
+
 
 uint32_t samplechain_get_num_algorithms(void) {
    // (todo) increase this number when adding more algorithms
-   return 1;
+   return 2;
 }
 
 bool_t samplechain_select_algorithm(uint32_t _algorithmIdx, samplechain_algorithm_t *_retAlgorithm) {
@@ -53,6 +55,11 @@ bool_t samplechain_select_algorithm(uint32_t _algorithmIdx, samplechain_algorith
 
          case 0:
             bsp_varichain_select(_retAlgorithm);
+            ret = SC_TRUE;
+            break;
+
+         case 1:
+            bsp_samplechain_select(_retAlgorithm);
             ret = SC_TRUE;
             break;
 
