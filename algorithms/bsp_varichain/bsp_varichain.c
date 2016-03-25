@@ -337,10 +337,10 @@ static void loc_calc(samplechain_t _sc) {
             maxPct = ((float32_t)maxSmpSz) / totalSmpSz;
             maxNumSlices = (int32_t)((sc->num_slices * maxPct) + 0.5f);
 
-            slcSz = maxSmpSz / maxNumSlices;
+            slcSz = (float32_t)maxSmpSz / maxNumSlices;
 
             sc->cur_sta = 0.0f;
-            loc_align_sizes_to(sc, slcSz);
+            loc_align_sizes_to(sc, (int32_t)slcSz);
 
             totalSmpSz = loc_get_total_smp_sz(sc);
 
@@ -348,13 +348,13 @@ static void loc_calc(samplechain_t _sc) {
             newNumSlices = totalSmpSz / slcSz;
             printf("[...] newNumSlices=%f int=%d\n", newNumSlices, (int32_t)(newNumSlices+0.5f));
 
-            slcSz = totalSmpSz / 120.0;
+            slcSz = totalSmpSz / 120.0f;
             printf("[...] newSlcSz=%f int=%d\n", slcSz, (int32_t)(slcSz+0.5f));
 
-            slcSz = (int32_t)(slcSz+0.5f);
+            slcSz = (float32_t)((int32_t)(slcSz+0.5f));
 
             sc->cur_sta = 0.0f;
-            loc_align_padded_sizes_to(sc, slcSz);
+            loc_align_padded_sizes_to(sc, (int32_t)slcSz);
 
             if(loc_are_pad_sizes_greater_than(sc, sc->min_padding))
             {
