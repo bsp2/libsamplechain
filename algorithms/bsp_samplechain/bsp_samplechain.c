@@ -143,7 +143,7 @@ static float32_t loc_calc_average_slice_padding(sc_t *_sc) {
 // Interface impl:
 
 static const char *loc_query_algorithm_name(void) {
-   return "VariChain (bsp)";
+   return "SampleChain (bsp)";
 }
 
 static void loc_init(samplechain_t *_retSc, uint32_t _numSlices/*120 for AR*/) {
